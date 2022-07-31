@@ -1,0 +1,5 @@
+float i=243;
+while(i<=20)
+{
+  double k;
+}

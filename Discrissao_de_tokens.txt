@@ -1,0 +1,13 @@
+Vamos idetificar os idetificadoes(a...z)(A...Z|0...9|a...z)*
+
+numeros(0...9)+
+
+Potiucao(; e ,)
+
+Operadores de comparação(==, !=, >, <, >=, <=)
+
+operadorers de atribuicao (=) (+=, -=, *=, /=)  
+
+
+observacoes
+a...z--> intervalo da letra 'a' ate a letra 'a'	
