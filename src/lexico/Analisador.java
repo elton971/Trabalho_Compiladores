@@ -3,6 +3,8 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
+
+import sintactico.AnalisadorSintatico;
 public class Analisador {
 
 	
@@ -28,9 +30,9 @@ public class Analisador {
 	//vai armazenar os Idetificadores
 	private ArrayList<Idetificador> id=new ArrayList<Idetificador>();
 
-	private String tipoPrimitivo;//armazena o tipo da variavel
-	private String valor;//armzena o valor da variavel
-
+	private String tipoPrimitivo,valor,memoria;//armazena o tipo da variavel e armzena o valor da variavel
+	
+	private AnalisadorSintatico a;
 	
 	public Analisador() {
 		preecherArrayTipo();
@@ -40,6 +42,7 @@ public class Analisador {
         preecherConstantesNumericas();
         lerFicheiro("programa.txt");
         Token token=null;
+		a=new AnalisadorSintatico();
 		do{
 			token=proximoToken();
 			
@@ -47,6 +50,8 @@ public class Analisador {
 			
 		}while(token!=null);
 		classificar();
+		a.enviarSimbolos(tokens, id);
+		
 		
 		
 			
@@ -330,6 +335,7 @@ public class Analisador {
 				s.setNome(token.getLexema());
 				s.setClassificacao("Tipo primitivo");
 				tipoPrimitivo=token.getLexema();
+				memoria="Primitivo";
 				simbolos[i]=s;
 
 				
@@ -392,14 +398,12 @@ public class Analisador {
 									
 									ids.setNome(token.getLexema());
 									ids.setTipo(tipoPrimitivo);
-									
+									ids.setMemoria(memoria);
 									ids.setValor(valor);
 									id.add(ids);
 									
 								}
-								else{
-									System.out.println("exites");
-								}
+								
 								
 								//ids.setMemoria(memoria);
 
@@ -488,10 +492,16 @@ public class Analisador {
 		}
 		System.out.println("==========================================================================");
 
+		System.out.println();
+		System.out.println("===============================Tabela de Idetificadores=============================");
+		System.out.println("|         Nome        |         Tipo        |         Valor      |     Memoria     |");
+		System.out.println("====================================================================================");
 		for(int i=0;i<id.size();i++)
 		{
 			
-			System.out.println(id.get(i).getNome()+" : "+id.get(i).getTipo()+" : "+id.get(i).getValor());
+			System.out.printf("|%21s|%21s|%20s|%17s|\n",id.get(i).getNome(),id.get(i).getTipo(),id.get(i).getValor(),id.get(i).getMemoria());
+			
 		}
+		System.out.println("===================================================================================|");
 	}
 }
