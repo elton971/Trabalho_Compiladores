@@ -35,6 +35,7 @@ public class Analisador {
 	private AnalisadorSintatico a;
 	
 	public Analisador() {
+		
 		preecherArrayTipo();
         preecherArrayOperador();
         preecherArrayDelimitador();
@@ -49,8 +50,10 @@ public class Analisador {
 			
 			
 		}while(token!=null);
+		
 		classificar();
-		a.enviarSimbolos(tokens, id);
+		
+		a.enviarSimbolos(tokens, id,operadores,constantesNumericas);
 		
 		
 		
